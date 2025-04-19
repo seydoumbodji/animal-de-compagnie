@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Dog, Cat, Rabbit } from "lucide-react";
-import { toast } from "sonner";
+import { toast } from "@/hooks/use-toast";
 
 const CompatibilityQuiz = () => {
   const [step, setStep] = useState(1);
@@ -25,7 +25,11 @@ const CompatibilityQuiz = () => {
   
   const handleNext = () => {
     if (step === 1 && !answers.petType) {
-      toast.error("Veuillez sélectionner un type d'animal");
+      toast({
+        title: "Erreur",
+        description: "Veuillez sélectionner un type d'animal",
+        variant: "destructive"
+      });
       return;
     }
     
@@ -33,7 +37,10 @@ const CompatibilityQuiz = () => {
       setStep(step + 1);
     } else {
       // In a real app, we would calculate results and show matches
-      toast.success("Vos résultats sont prêts !");
+      toast({
+        title: "Succès",
+        description: "Vos résultats sont prêts !"
+      });
     }
   };
   

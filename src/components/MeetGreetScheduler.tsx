@@ -4,7 +4,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { toast } from "sonner";
+import { toast } from "@/hooks/use-toast";
 
 const timeSlots = [
   "10:00", "11:00", "12:00", "14:00", "15:00", "16:00", "17:00"
@@ -21,17 +21,28 @@ const MeetGreetScheduler = ({ petName, petImage }: MeetGreetSchedulerProps) => {
   
   const handleSchedule = () => {
     if (!date) {
-      toast.error("Veuillez sélectionner une date");
+      toast({
+        title: "Erreur",
+        description: "Veuillez sélectionner une date",
+        variant: "destructive"
+      });
       return;
     }
     
     if (!timeSlot) {
-      toast.error("Veuillez sélectionner un horaire");
+      toast({
+        title: "Erreur",
+        description: "Veuillez sélectionner un horaire",
+        variant: "destructive"
+      });
       return;
     }
     
     // In a real app, this would send the request to the backend
-    toast.success(`Rendez-vous avec ${petName} programmé pour le ${date?.toLocaleDateString()} à ${timeSlot}.`);
+    toast({
+      title: "Rendez-vous programmé",
+      description: `Rendez-vous avec ${petName} programmé pour le ${date?.toLocaleDateString()} à ${timeSlot}.`
+    });
   };
   
   // Get tomorrow as the minimum selectable date
