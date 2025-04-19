@@ -1,8 +1,45 @@
 
 import { Button } from "@/components/ui/button";
 import { Dog, Cat, Rabbit } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 const Hero = () => {
+  const { toast } = useToast();
+
+  const handleQuizClick = () => {
+    // Scroll to the quiz section
+    const quizSection = document.querySelector('[data-section="quiz"]');
+    if (quizSection) {
+      quizSection.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      toast({
+        title: "Information",
+        description: "La section Quiz est en cours de chargement"
+      });
+    }
+  };
+
+  const handleAdoptClick = () => {
+    // Scroll to the pets section
+    const petsSection = document.getElementById("pets-section");
+    if (petsSection) {
+      petsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleAnimalTypeClick = (type: string) => {
+    // Find the tabs section and activate the appropriate tab
+    const tabTrigger = document.querySelector(`[data-state="inactive"][value="${type}"]`) as HTMLButtonElement;
+    if (tabTrigger) {
+      tabTrigger.click();
+      // Also scroll to the section
+      const petsSection = document.getElementById("pets-section");
+      if (petsSection) {
+        petsSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
   return (
     <div className="bg-gradient-to-br from-purple-50 to-white py-16 md:py-24">
       <div className="container mx-auto px-4 flex flex-col md:flex-row items-center">
@@ -14,27 +51,45 @@ const Hero = () => {
             Découvrez des animaux adorables qui cherchent un foyer aimant. Notre plateforme unique vous aide à trouver le compagnon parfait selon votre style de vie.
           </p>
           <div className="flex flex-wrap gap-3 pt-2">
-            <Button size="lg" className="bg-purple-500 hover:bg-purple-600">
+            <Button 
+              size="lg" 
+              className="bg-purple-500 hover:bg-purple-600"
+              onClick={handleAdoptClick}
+            >
               Adopter maintenant
             </Button>
-            <Button size="lg" variant="outline" className="border-purple-500 text-purple-500 hover:bg-purple-50">
+            <Button 
+              size="lg" 
+              variant="outline" 
+              className="border-purple-500 text-purple-500 hover:bg-purple-50"
+              onClick={handleQuizClick}
+            >
               Quiz d'Affinité
             </Button>
           </div>
           
           <div className="flex flex-wrap gap-4 pt-4">
-            <a href="#" className="flex items-center px-4 py-2 bg-white rounded-full shadow-sm hover:shadow transition-all text-gray-700">
+            <button 
+              onClick={() => handleAnimalTypeClick("dogs")}
+              className="flex items-center px-4 py-2 bg-white rounded-full shadow-sm hover:shadow transition-all text-gray-700"
+            >
               <Dog className="mr-2 h-5 w-5 text-purple-500" /> 
               <span>Chiens</span>
-            </a>
-            <a href="#" className="flex items-center px-4 py-2 bg-white rounded-full shadow-sm hover:shadow transition-all text-gray-700">
+            </button>
+            <button 
+              onClick={() => handleAnimalTypeClick("cats")}
+              className="flex items-center px-4 py-2 bg-white rounded-full shadow-sm hover:shadow transition-all text-gray-700"
+            >
               <Cat className="mr-2 h-5 w-5 text-purple-500" /> 
               <span>Chats</span>
-            </a>
-            <a href="#" className="flex items-center px-4 py-2 bg-white rounded-full shadow-sm hover:shadow transition-all text-gray-700">
+            </button>
+            <button 
+              onClick={() => handleAnimalTypeClick("rabbits")}
+              className="flex items-center px-4 py-2 bg-white rounded-full shadow-sm hover:shadow transition-all text-gray-700"
+            >
               <Rabbit className="mr-2 h-5 w-5 text-purple-500" /> 
               <span>Lapins</span>
-            </a>
+            </button>
           </div>
         </div>
         

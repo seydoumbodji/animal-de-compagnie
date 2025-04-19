@@ -131,7 +131,7 @@ const Index = () => {
       <Hero />
 
       {/* Featured Pets Section */}
-      <section className="py-16 bg-white">
+      <section id="pets-section" className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
@@ -160,7 +160,7 @@ const Index = () => {
             <TabsContent value="dogs">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {pets.dogs.map(pet => (
-                  <div key={pet.id} onClick={() => handleMeetGreet(pet)}>
+                  <div key={pet.id} onClick={() => handleMeetGreet(pet)} className="cursor-pointer">
                     <PetCard {...pet} />
                   </div>
                 ))}
@@ -170,7 +170,7 @@ const Index = () => {
             <TabsContent value="cats">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {pets.cats.map(pet => (
-                  <div key={pet.id} onClick={() => handleMeetGreet(pet)}>
+                  <div key={pet.id} onClick={() => handleMeetGreet(pet)} className="cursor-pointer">
                     <PetCard {...pet} />
                   </div>
                 ))}
@@ -180,7 +180,7 @@ const Index = () => {
             <TabsContent value="rabbits">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {pets.rabbits.map(pet => (
-                  <div key={pet.id} onClick={() => handleMeetGreet(pet)}>
+                  <div key={pet.id} onClick={() => handleMeetGreet(pet)} className="cursor-pointer">
                     <PetCard {...pet} />
                   </div>
                 ))}
@@ -214,7 +214,7 @@ const Index = () => {
       )}
 
       {/* Compatibility Quiz Section */}
-      <section className="py-16 bg-purple-100 bg-opacity-40">
+      <section data-section="quiz" className="py-16 bg-purple-100 bg-opacity-40">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
