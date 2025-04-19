@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,19 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Custom colors
+				'purple': {
+					50: '#f3f0ff',
+					100: '#e9e3ff',
+					200: '#d6cbff',
+					300: '#b9a4ff',
+					400: '#9b87f5', // Primary 
+					500: '#7E69AB', // Secondary
+					600: '#6E59A5', // Tertiary
+					700: '#4f3d86',
+					800: '#3b2b68',
+					900: '#291c4d',
 				}
 			},
 			borderRadius: {
@@ -84,12 +98,31 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'float': {
+					'0%, 100%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-10px)' }
+				},
+				'wiggle': {
+					'0%, 100%': { transform: 'rotate(-3deg)' },
+					'50%': { transform: 'rotate(3deg)' }
+				},
+				'pulse-gentle': {
+					'0%, 100%': { opacity: '1' },
+					'50%': { opacity: '0.8' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
-			}
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'float': 'float 3s ease-in-out infinite',
+				'wiggle': 'wiggle 2s ease-in-out infinite',
+				'pulse-gentle': 'pulse-gentle 3s ease-in-out infinite'
+			},
+			fontFamily: {
+				'nunito': ['"Nunito"', 'sans-serif'],
+				'poppins': ['"Poppins"', 'sans-serif'],
+			},
 		}
 	},
 	plugins: [require("tailwindcss-animate")],
