@@ -23,15 +23,24 @@ const Navbar = () => {
   };
 
   const handleAnimalTypeClick = (type: string) => {
-    // Find the tabs section and activate the appropriate tab
-    const tabTrigger = document.querySelector(`[data-state="inactive"][value="${type}"]`) as HTMLButtonElement;
-    if (tabTrigger) {
-      tabTrigger.click();
-      // Also scroll to the section
-      const petsSection = document.getElementById("pets-section");
-      if (petsSection) {
-        petsSection.scrollIntoView({ behavior: 'smooth' });
-      }
+    // Scroll to the section first
+    const petsSection = document.getElementById("pets-section");
+    if (petsSection) {
+      petsSection.scrollIntoView({ behavior: 'smooth' });
+      
+      // Use setTimeout to ensure the section is visible before trying to click the tab
+      setTimeout(() => {
+        // Find the tabs section and activate the appropriate tab
+        const tabTrigger = document.querySelector(`button[value="${type}"]`) as HTMLButtonElement;
+        if (tabTrigger) {
+          tabTrigger.click();
+        } else {
+          toast({
+            title: "Information",
+            description: `La section ${type} est en cours de chargement`
+          });
+        }
+      }, 100);
     }
   };
 
@@ -49,18 +58,21 @@ const Navbar = () => {
           <button 
             onClick={() => handleAnimalTypeClick("dogs")}
             className="flex items-center text-gray-700 hover:text-purple-500 transition-colors font-medium"
+            aria-label="Voir les chiens"
           >
             <Dog className="mr-1 h-5 w-5" /> Chiens
           </button>
           <button 
             onClick={() => handleAnimalTypeClick("cats")}
             className="flex items-center text-gray-700 hover:text-purple-500 transition-colors font-medium"
+            aria-label="Voir les chats"
           >
             <Cat className="mr-1 h-5 w-5" /> Chats
           </button>
           <button 
             onClick={() => handleAnimalTypeClick("rabbits")}
             className="flex items-center text-gray-700 hover:text-purple-500 transition-colors font-medium"
+            aria-label="Voir les lapins"
           >
             <Rabbit className="mr-1 h-5 w-5" /> Lapins
           </button>
@@ -70,12 +82,14 @@ const Navbar = () => {
               title: "Fonctionnalité à venir",
               description: "La section favoris sera bientôt disponible"
             })}
+            aria-label="Voir les favoris"
           >
             <Heart className="mr-1 h-5 w-5" /> Favoris
           </button>
           <Button 
             className="bg-purple-500 hover:bg-purple-600"
             onClick={handleQuizClick}
+            aria-label="Quiz d'affinité"
           >
             Quiz d'Affinité
           </Button>
@@ -86,6 +100,8 @@ const Navbar = () => {
           <button 
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="text-gray-600 hover:text-purple-500"
+            aria-label={isMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+            aria-expanded={isMenuOpen}
           >
             <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               {isMenuOpen ? (
@@ -107,6 +123,7 @@ const Navbar = () => {
               setIsMenuOpen(false);
             }}
             className="block py-2 px-4 text-gray-700 hover:bg-purple-50 rounded flex items-center w-full text-left"
+            aria-label="Voir les chiens"
           >
             <Dog className="mr-1 h-5 w-5" /> Chiens
           </button>
@@ -116,6 +133,7 @@ const Navbar = () => {
               setIsMenuOpen(false);
             }}
             className="block py-2 px-4 text-gray-700 hover:bg-purple-50 rounded flex items-center w-full text-left"
+            aria-label="Voir les chats"
           >
             <Cat className="mr-1 h-5 w-5" /> Chats
           </button>
@@ -125,6 +143,7 @@ const Navbar = () => {
               setIsMenuOpen(false);
             }}
             className="block py-2 px-4 text-gray-700 hover:bg-purple-50 rounded flex items-center w-full text-left"
+            aria-label="Voir les lapins"
           >
             <Rabbit className="mr-1 h-5 w-5" /> Lapins
           </button>
@@ -137,6 +156,7 @@ const Navbar = () => {
               setIsMenuOpen(false);
             }}
             className="block py-2 px-4 text-gray-700 hover:bg-purple-50 rounded flex items-center w-full text-left"
+            aria-label="Voir les favoris"
           >
             <Heart className="mr-1 h-5 w-5" /> Favoris
           </button>
@@ -147,6 +167,7 @@ const Navbar = () => {
                 handleQuizClick();
                 setIsMenuOpen(false);
               }}
+              aria-label="Quiz d'affinité"
             >
               Quiz d'Affinité
             </Button>

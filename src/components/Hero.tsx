@@ -28,15 +28,24 @@ const Hero = () => {
   };
 
   const handleAnimalTypeClick = (type: string) => {
-    // Find the tabs section and activate the appropriate tab
-    const tabTrigger = document.querySelector(`[data-state="inactive"][value="${type}"]`) as HTMLButtonElement;
-    if (tabTrigger) {
-      tabTrigger.click();
-      // Also scroll to the section
-      const petsSection = document.getElementById("pets-section");
-      if (petsSection) {
-        petsSection.scrollIntoView({ behavior: 'smooth' });
-      }
+    // Scroll to the section first
+    const petsSection = document.getElementById("pets-section");
+    if (petsSection) {
+      petsSection.scrollIntoView({ behavior: 'smooth' });
+      
+      // Use setTimeout to ensure the section is visible before trying to click the tab
+      setTimeout(() => {
+        // Find the tabs section and activate the appropriate tab
+        const tabTrigger = document.querySelector(`button[value="${type}"]`) as HTMLButtonElement;
+        if (tabTrigger) {
+          tabTrigger.click();
+        } else {
+          toast({
+            title: "Information",
+            description: `La section ${type} est en cours de chargement`
+          });
+        }
+      }, 100);
     }
   };
 
@@ -55,6 +64,7 @@ const Hero = () => {
               size="lg" 
               className="bg-purple-500 hover:bg-purple-600"
               onClick={handleAdoptClick}
+              aria-label="Adopter maintenant"
             >
               Adopter maintenant
             </Button>
@@ -63,6 +73,7 @@ const Hero = () => {
               variant="outline" 
               className="border-purple-500 text-purple-500 hover:bg-purple-50"
               onClick={handleQuizClick}
+              aria-label="Quiz d'affinité"
             >
               Quiz d'Affinité
             </Button>
@@ -72,6 +83,7 @@ const Hero = () => {
             <button 
               onClick={() => handleAnimalTypeClick("dogs")}
               className="flex items-center px-4 py-2 bg-white rounded-full shadow-sm hover:shadow transition-all text-gray-700"
+              aria-label="Voir les chiens"
             >
               <Dog className="mr-2 h-5 w-5 text-purple-500" /> 
               <span>Chiens</span>
@@ -79,6 +91,7 @@ const Hero = () => {
             <button 
               onClick={() => handleAnimalTypeClick("cats")}
               className="flex items-center px-4 py-2 bg-white rounded-full shadow-sm hover:shadow transition-all text-gray-700"
+              aria-label="Voir les chats"
             >
               <Cat className="mr-2 h-5 w-5 text-purple-500" /> 
               <span>Chats</span>
@@ -86,6 +99,7 @@ const Hero = () => {
             <button 
               onClick={() => handleAnimalTypeClick("rabbits")}
               className="flex items-center px-4 py-2 bg-white rounded-full shadow-sm hover:shadow transition-all text-gray-700"
+              aria-label="Voir les lapins"
             >
               <Rabbit className="mr-2 h-5 w-5 text-purple-500" /> 
               <span>Lapins</span>
