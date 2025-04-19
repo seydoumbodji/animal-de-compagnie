@@ -145,7 +145,7 @@ const CompatibilityQuiz = () => {
           <RadioGroup value={answers.timeAvailable} onValueChange={(value) => handleInputChange("timeAvailable", value)}>
             <div className="flex items-center space-x-2 border p-3 rounded-md">
               <RadioGroupItem value="minimal" id="time-minimal" />
-              <Label htmlFor="time-minimal">Minimal (< 1 heure)</Label>
+              <Label htmlFor="time-minimal">Minimal (&lt; 1 heure)</Label>
             </div>
             <div className="flex items-center space-x-2 border p-3 rounded-md">
               <RadioGroupItem value="moderate" id="time-moderate" />
@@ -175,7 +175,7 @@ const CompatibilityQuiz = () => {
             </div>
             <div className="flex items-center space-x-2 border p-3 rounded-md">
               <RadioGroupItem value="young" id="children-young" />
-              <Label htmlFor="children-young">Jeunes enfants (< 7 ans)</Label>
+              <Label htmlFor="children-young">Jeunes enfants (&lt; 7 ans)</Label>
             </div>
           </RadioGroup>
         </div>
