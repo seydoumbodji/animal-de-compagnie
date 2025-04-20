@@ -1,6 +1,7 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Dog, Cat, Rabbit, Heart } from "lucide-react";
+import { Dog, Cat, Rabbit, Plus } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 
@@ -75,16 +76,13 @@ const Navbar = () => {
           >
             <Rabbit className="mr-1 h-5 w-5" /> Lapins
           </button>
-          <button 
+          <Link 
+            to="/soumettre-animal"
             className="flex items-center text-gray-700 hover:text-purple-500 transition-colors font-medium"
-            onClick={() => toast({
-              title: "Fonctionnalité à venir",
-              description: "La section favoris sera bientôt disponible"
-            })}
-            aria-label="Voir les favoris"
+            aria-label="Soumettre un animal"
           >
-            <Heart className="mr-1 h-5 w-5" /> Favoris
-          </button>
+            <Plus className="mr-1 h-5 w-5" /> Soumettre Un Animal
+          </Link>
           <Button 
             className="bg-purple-500 hover:bg-purple-600"
             onClick={handleQuizClick}
@@ -146,19 +144,14 @@ const Navbar = () => {
           >
             <Rabbit className="mr-1 h-5 w-5" /> Lapins
           </button>
-          <button 
-            onClick={() => {
-              toast({
-                title: "Fonctionnalité à venir",
-                description: "La section favoris sera bientôt disponible"
-              });
-              setIsMenuOpen(false);
-            }}
+          <Link 
+            to="/soumettre-animal"
+            onClick={() => setIsMenuOpen(false)}
             className="block py-2 px-4 text-gray-700 hover:bg-purple-50 rounded flex items-center w-full text-left"
-            aria-label="Voir les favoris"
+            aria-label="Soumettre un animal"
           >
-            <Heart className="mr-1 h-5 w-5" /> Favoris
-          </button>
+            <Plus className="mr-1 h-5 w-5" /> Soumettre Un Animal
+          </Link>
           <div className="px-4 py-2">
             <Button 
               className="bg-purple-500 hover:bg-purple-600 w-full"
