@@ -1,48 +1,103 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Dog, Cat, Rabbit, Plus } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { toast } = useToast();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isHomePage = location.pathname === '/';
+
+  const scrollToSection = (sectionId: string) => {
+    const section = document.querySelector(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+      return true;
+    }
+    return false;
+  };
 
   const handleQuizClick = () => {
-    // Scroll to the quiz section
-    const quizSection = document.querySelector('[data-section="quiz"]');
-    if (quizSection) {
-      quizSection.scrollIntoView({ behavior: 'smooth' });
+    if (isHomePage) {
+      // Scroll to the quiz section if we're on home page
+      const quizSection = document.querySelector('[data-section="quiz"]');
+      if (quizSection) {
+        quizSection.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        toast({
+          title: "Information",
+          description: "La section Quiz est en cours de chargement"
+        });
+      }
     } else {
-      toast({
-        title: "Information",
-        description: "La section Quiz est en cours de chargement"
-      });
+      // Navigate to home page and scroll to quiz section after page load
+      navigate('/', { state: { scrollTo: 'quiz' } });
     }
   };
 
   const handleAnimalTypeClick = (type: string) => {
-    // Scroll to the section first
-    const petsSection = document.getElementById("pets-section");
-    if (petsSection) {
-      petsSection.scrollIntoView({ behavior: 'smooth' });
-      
-      // Use setTimeout to ensure the section is visible before trying to click the tab
-      setTimeout(() => {
-        // Find the tabs section and activate the appropriate tab
-        const tabTrigger = document.querySelector(`button[value="${type}"]`) as HTMLButtonElement;
-        if (tabTrigger) {
-          tabTrigger.click();
-        } else {
-          toast({
-            title: "Information",
-            description: `La section ${type} est en cours de chargement`
-          });
-        }
-      }, 100);
+    if (isHomePage) {
+      // If on home page, scroll to the section
+      const petsSection = document.getElementById("pets-section");
+      if (petsSection) {
+        petsSection.scrollIntoView({ behavior: 'smooth' });
+        
+        // Use setTimeout to ensure the section is visible before trying to click the tab
+        setTimeout(() => {
+          // Find the tabs section and activate the appropriate tab
+          const tabTrigger = document.querySelector(`button[value="${type}"]`) as HTMLButtonElement;
+          if (tabTrigger) {
+            tabTrigger.click();
+          } else {
+            toast({
+              title: "Information",
+              description: `La section ${type} est en cours de chargement`
+            });
+          }
+        }, 100);
+      }
+    } else {
+      // Navigate to home page and then handle the scrolling
+      navigate('/', { state: { scrollTo: 'pets', animalType: type } });
     }
   };
+
+  // Effect to handle scrolling after navigation
+  useEffect(() => {
+    if (isHomePage && location.state) {
+      const state = location.state as { scrollTo?: string; animalType?: string };
+      
+      if (state.scrollTo === 'quiz') {
+        setTimeout(() => {
+          const quizSection = document.querySelector('[data-section="quiz"]');
+          if (quizSection) {
+            quizSection.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 100);
+      } 
+      else if (state.scrollTo === 'pets') {
+        setTimeout(() => {
+          const petsSection = document.getElementById("pets-section");
+          if (petsSection) {
+            petsSection.scrollIntoView({ behavior: 'smooth' });
+            
+            if (state.animalType) {
+              setTimeout(() => {
+                const tabTrigger = document.querySelector(`button[value="${state.animalType}"]`) as HTMLButtonElement;
+                if (tabTrigger) {
+                  tabTrigger.click();
+                }
+              }, 100);
+            }
+          }
+        }, 100);
+      }
+    }
+  }, [isHomePage, location.state]);
 
   return (
     <nav className="bg-white shadow-sm py-4">
