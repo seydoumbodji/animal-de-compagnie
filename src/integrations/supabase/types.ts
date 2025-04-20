@@ -9,7 +9,86 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      animal_photos: {
+        Row: {
+          animal_id: string
+          created_at: string
+          id: string
+          position: number
+          storage_path: string
+        }
+        Insert: {
+          animal_id: string
+          created_at?: string
+          id?: string
+          position: number
+          storage_path: string
+        }
+        Update: {
+          animal_id?: string
+          created_at?: string
+          id?: string
+          position?: number
+          storage_path?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "animal_photos_animal_id_fkey"
+            columns: ["animal_id"]
+            isOneToOne: false
+            referencedRelation: "animals"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      animals: {
+        Row: {
+          adoption_link: string | null
+          age_unit: string
+          age_value: number
+          breed: string | null
+          city: string
+          created_at: string
+          description: string
+          gender: string
+          id: string
+          name: string
+          shelter_name: string
+          species: string
+          updated_at: string
+        }
+        Insert: {
+          adoption_link?: string | null
+          age_unit: string
+          age_value: number
+          breed?: string | null
+          city: string
+          created_at?: string
+          description: string
+          gender: string
+          id?: string
+          name: string
+          shelter_name: string
+          species: string
+          updated_at?: string
+        }
+        Update: {
+          adoption_link?: string | null
+          age_unit?: string
+          age_value?: number
+          breed?: string | null
+          city?: string
+          created_at?: string
+          description?: string
+          gender?: string
+          id?: string
+          name?: string
+          shelter_name?: string
+          species?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
