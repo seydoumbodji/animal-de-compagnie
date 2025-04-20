@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Dog, Cat, Rabbit, Heart } from "lucide-react";
@@ -49,7 +48,7 @@ const Navbar = () => {
       <div className="container mx-auto px-4 flex justify-between items-center">
         <div className="flex items-center space-x-2">
           <Link to="/" className="text-purple-500 text-3xl font-nunito font-extrabold">
-            Cuddle<span className="text-purple-700">Buddies</span>
+            Animal<span className="text-purple-700">Compagnie</span>
           </Link>
         </div>
 
