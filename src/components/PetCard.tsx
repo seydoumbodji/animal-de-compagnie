@@ -21,9 +21,25 @@ interface PetCardProps {
   personalities: string[];
   type: "dog" | "cat" | "rabbit";
   lifespan: string;
+  shelterName: string;
+  adoptionLink?: string;
+  description: string;
 }
 
-const PetCard = ({ id, name, image, age, breed, location, personalities, type, lifespan }: PetCardProps) => {
+const PetCard = ({ 
+  id, 
+  name, 
+  image, 
+  age, 
+  breed, 
+  location, 
+  personalities, 
+  type, 
+  lifespan,
+  shelterName,
+  adoptionLink,
+  description
+}: PetCardProps) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [showInfoDialog, setShowInfoDialog] = useState(false);
 
@@ -33,7 +49,6 @@ const PetCard = ({ id, name, image, age, breed, location, personalities, type, l
     rabbit: "Lapin"
   };
 
-  // Informations supplémentaires sur les animaux (en fonction du type)
   const petInfo = {
     dog: {
       lifespan: "10-13 ans",
@@ -136,7 +151,9 @@ const PetCard = ({ id, name, image, age, breed, location, personalities, type, l
               />
               <div>
                 <DialogTitle className="text-xl">{name}</DialogTitle>
-                <DialogDescription>{breed} • {age}</DialogDescription>
+                <DialogDescription>
+                  {breed} • {age}
+                </DialogDescription>
               </div>
             </div>
           </DialogHeader>
@@ -178,20 +195,28 @@ const PetCard = ({ id, name, image, age, breed, location, personalities, type, l
                 <h4 className="font-medium text-purple-700">Frais d'adoption</h4>
                 <p className="text-sm text-gray-600">{petInfo[type].adoptionFee}</p>
               </div>
+              <div>
+                <h4 className="font-medium text-purple-700">Refuge</h4>
+                <p className="text-sm text-gray-600">{shelterName}</p>
+              </div>
             </div>
 
             <div className="mt-4">
-              <h4 className="font-medium text-purple-700 mb-1">À propos de {name}</h4>
-              <p className="text-sm text-gray-600">
-                {name} est un{type === "cat" ? "e" : ""} {petTypeLabels[type].toLowerCase()} {type === "cat" ? "câline" : "affectueux"} qui 
-                aime {type === "dog" ? "les promenades et jouer" : type === "cat" ? "se prélasser au soleil et jouer avec des jouets" : "grignoter du foin frais et explorer son environnement"}.
-                {personalities.includes("Sociable") ? ` ${name} s'entend bien avec les autres animaux et les enfants.` : ""}
-                {personalities.includes("Calme") ? ` ${name} est calme et appréciera un foyer tranquille.` : ""}
-                {personalities.includes("Énergique") ? ` ${name} est plein d'énergie et aura besoin d'exercice quotidien.` : ""}
-              </p>
+              <h4 className="font-medium text-purple-700 mb-1">Description</h4>
+              <p className="text-sm text-gray-600">{description}</p>
             </div>
             
-            <div className="pt-2">
+            <div className="pt-2 space-y-2">
+              {adoptionLink && (
+                <Button 
+                  className="w-full bg-purple-500 hover:bg-purple-600" 
+                  asChild
+                >
+                  <a href={adoptionLink} target="_blank" rel="noopener noreferrer">
+                    Adopter {name}
+                  </a>
+                </Button>
+              )}
               <Button 
                 className="w-full bg-purple-500 hover:bg-purple-600"
                 onClick={() => setShowInfoDialog(false)}
