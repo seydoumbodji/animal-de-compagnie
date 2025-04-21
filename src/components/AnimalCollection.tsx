@@ -45,6 +45,7 @@ const AnimalCollection = () => {
           location={animal.city}
           personalities={["Adorable"]}
           type={animal.species as "dog" | "cat" | "rabbit"}
+          lifespan="10-15 ans" // Ajout d'une valeur par défaut pour lifespan
         />
       ))}
     </div>
