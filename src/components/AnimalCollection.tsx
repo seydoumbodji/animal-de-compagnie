@@ -2,6 +2,7 @@
 import { useAnimals } from "@/hooks/useAnimals";
 import PetCard from "@/components/PetCard";
 import { Skeleton } from "@/components/ui/skeleton";
+import { supabase } from "@/integrations/supabase/client";
 
 const AnimalCollection = () => {
   const { data: animals, isLoading, error } = useAnimals();
@@ -42,6 +43,12 @@ const AnimalCollection = () => {
     return "dog";
   };
 
+  // Function to get the public URL for a storage path
+  const getPhotoUrl = (storagePath: string) => {
+    const { data } = supabase.storage.from('animal_photos').getPublicUrl(storagePath);
+    return data.publicUrl;
+  };
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {animals.map((animal) => (
@@ -49,7 +56,9 @@ const AnimalCollection = () => {
           key={animal.id}
           id={Number(animal.id)}
           name={animal.name}
-          image={animal.photos[0]?.storage_path || 'https://images.unsplash.com/photo-1585574234148-1031d167c052'}
+          image={animal.photos?.[0]?.storage_path 
+            ? getPhotoUrl(animal.photos[0].storage_path)
+            : 'https://images.unsplash.com/photo-1585574234148-1031d167c052'}
           age={`${animal.age_value} ${animal.age_unit}`}
           breed={animal.breed || 'Non spécifié'}
           location={animal.city}

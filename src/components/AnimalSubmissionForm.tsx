@@ -57,10 +57,10 @@ const AnimalSubmissionForm = () => {
 
     setIsSubmitting(true);
     try {
-      // Insert animal data
+      // Insert animal data - Fix: Pass values directly, not in an array
       const { data: animal, error: animalError } = await supabase
         .from('animals')
-        .insert([values])
+        .insert(values) // Fix: Don't wrap in array here
         .select()
         .single();
 
