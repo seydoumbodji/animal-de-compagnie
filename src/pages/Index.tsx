@@ -1,120 +1,15 @@
-
 import React, { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
-import PetCard from '@/components/PetCard';
+import AnimalCollection from '@/components/AnimalCollection';
 import CompatibilityQuiz from '@/components/CompatibilityQuiz';
 import MeetGreetScheduler from '@/components/MeetGreetScheduler';
 import SuccessStories from '@/components/SuccessStories';
 import Footer from '@/components/Footer';
-import { Button } from '@/components/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Dog, Cat, Rabbit } from 'lucide-react';
 
 const Index = () => {
-  const [activeTab, setActiveTab] = useState("dogs");
   const [showScheduler, setShowScheduler] = useState(false);
   const [selectedPet, setSelectedPet] = useState<any>(null);
-
-  // Mock data for pets
-  const pets = {
-    dogs: [
-      {
-        id: 1,
-        name: "Rocky",
-        image: "https://images.unsplash.com/photo-1561037404-61cd46aa615b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-        age: "2 ans",
-        breed: "Berger Allemand",
-        location: "Paris",
-        personalities: ["Joueur", "Énergique", "Fidèle"],
-        type: "dog" as const
-      },
-      {
-        id: 2,
-        name: "Bella",
-        image: "https://images.unsplash.com/photo-1583511666372-62fc211f8377?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-        age: "4 ans",
-        breed: "Golden Retriever",
-        location: "Lyon",
-        personalities: ["Calme", "Affectueux", "Sociable"],
-        type: "dog" as const
-      },
-      {
-        id: 3,
-        name: "Max",
-        image: "https://images.unsplash.com/photo-1588943211346-0908a1fb0b01?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-        age: "1 an",
-        breed: "Jack Russell",
-        location: "Marseille",
-        personalities: ["Vif", "Intelligent", "Curieux"],
-        type: "dog" as const
-      }
-    ],
-    cats: [
-      {
-        id: 4,
-        name: "Luna",
-        image: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-        age: "3 ans",
-        breed: "Siamois",
-        location: "Bordeaux",
-        personalities: ["Indépendant", "Calme", "Observateur"],
-        type: "cat" as const
-      },
-      {
-        id: 5,
-        name: "Simba",
-        image: "https://images.unsplash.com/photo-1573865526739-10659fec78a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-        age: "5 mois",
-        breed: "Maine Coon",
-        location: "Lille",
-        personalities: ["Joueur", "Sociable", "Doux"],
-        type: "cat" as const
-      },
-      {
-        id: 6,
-        name: "Felix",
-        image: "https://images.unsplash.com/photo-1592194996308-7b43878e84a6?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-        age: "2 ans",
-        breed: "Européen",
-        location: "Toulouse",
-        personalities: ["Câlin", "Dormeur", "Gourmand"],
-        type: "cat" as const
-      }
-    ],
-    rabbits: [
-      {
-        id: 7,
-        name: "Caramel",
-        image: "https://images.unsplash.com/photo-1585574234148-1031d167c052?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-        age: "1 an",
-        breed: "Nain",
-        location: "Nice",
-        personalities: ["Timide", "Calme", "Propre"],
-        type: "rabbit" as const
-      },
-      {
-        id: 8,
-        name: "Oreo",
-        image: "https://images.unsplash.com/photo-1518796745738-41048802f99a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-        age: "8 mois",
-        breed: "Bélier",
-        location: "Strasbourg",
-        personalities: ["Curieux", "Actif", "Sociable"],
-        type: "rabbit" as const
-      },
-      {
-        id: 9,
-        name: "Snowball",
-        image: "https://images.unsplash.com/photo-1533993962330-7e4e1e64b2e3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-        age: "2 ans",
-        breed: "Rex",
-        location: "Nantes",
-        personalities: ["Doux", "Calme", "Affectueux"],
-        type: "rabbit" as const
-      }
-    ]
-  };
 
   const handleMeetGreet = (pet: any) => {
     setSelectedPet(pet);
@@ -130,7 +25,7 @@ const Index = () => {
       <Navbar />
       <Hero />
 
-      {/* Featured Pets Section */}
+      {/* Animals Collection Section */}
       <section id="pets-section" className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
@@ -138,61 +33,11 @@ const Index = () => {
               Nos Animaux à Adopter
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Découvrez nos adorables compagnons qui cherchent une famille aimante. Utilisez nos filtres pour trouver votre match parfait.
+              Découvrez nos adorables compagnons qui cherchent une famille aimante.
             </p>
           </div>
 
-          <Tabs defaultValue="dogs" className="w-full" onValueChange={setActiveTab}>
-            <div className="flex justify-center mb-8">
-              <TabsList className="bg-purple-50">
-                <TabsTrigger value="dogs" className="flex items-center">
-                  <Dog className="mr-1 h-4 w-4" /> Chiens
-                </TabsTrigger>
-                <TabsTrigger value="cats" className="flex items-center">
-                  <Cat className="mr-1 h-4 w-4" /> Chats
-                </TabsTrigger>
-                <TabsTrigger value="rabbits" className="flex items-center">
-                  <Rabbit className="mr-1 h-4 w-4" /> Lapins
-                </TabsTrigger>
-              </TabsList>
-            </div>
-
-            <TabsContent value="dogs">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {pets.dogs.map(pet => (
-                  <div key={pet.id} onClick={() => handleMeetGreet(pet)} className="cursor-pointer">
-                    <PetCard {...pet} />
-                  </div>
-                ))}
-              </div>
-            </TabsContent>
-
-            <TabsContent value="cats">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {pets.cats.map(pet => (
-                  <div key={pet.id} onClick={() => handleMeetGreet(pet)} className="cursor-pointer">
-                    <PetCard {...pet} />
-                  </div>
-                ))}
-              </div>
-            </TabsContent>
-
-            <TabsContent value="rabbits">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {pets.rabbits.map(pet => (
-                  <div key={pet.id} onClick={() => handleMeetGreet(pet)} className="cursor-pointer">
-                    <PetCard {...pet} />
-                  </div>
-                ))}
-              </div>
-            </TabsContent>
-          </Tabs>
-
-          <div className="mt-10 text-center">
-            <Button variant="outline" className="border-purple-500 text-purple-500 hover:bg-purple-50">
-              Voir plus de {activeTab === "dogs" ? "chiens" : activeTab === "cats" ? "chats" : "lapins"}
-            </Button>
-          </div>
+          <AnimalCollection />
         </div>
       </section>
 
