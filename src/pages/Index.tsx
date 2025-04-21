@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
@@ -6,6 +7,7 @@ import CompatibilityQuiz from '@/components/CompatibilityQuiz';
 import MeetGreetScheduler from '@/components/MeetGreetScheduler';
 import SuccessStories from '@/components/SuccessStories';
 import Footer from '@/components/Footer';
+import { Button } from '@/components/ui/button';
 
 const Index = () => {
   const [showScheduler, setShowScheduler] = useState(false);
