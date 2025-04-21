@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -21,9 +20,10 @@ interface PetCardProps {
   location: string;
   personalities: string[];
   type: "dog" | "cat" | "rabbit";
+  lifespan: string;
 }
 
-const PetCard = ({ id, name, image, age, breed, location, personalities, type }: PetCardProps) => {
+const PetCard = ({ id, name, image, age, breed, location, personalities, type, lifespan }: PetCardProps) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [showInfoDialog, setShowInfoDialog] = useState(false);
 

@@ -32,6 +32,16 @@ const AnimalCollection = () => {
     );
   }
 
+  // Map animal species to the specific type required by PetCard
+  const getAnimalType = (species: string): "dog" | "cat" | "rabbit" => {
+    const lowerSpecies = species.toLowerCase();
+    if (lowerSpecies.includes("chien")) return "dog";
+    if (lowerSpecies.includes("chat")) return "cat";
+    if (lowerSpecies.includes("lapin")) return "rabbit";
+    // Default fallback
+    return "dog";
+  };
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {animals.map((animal) => (
@@ -44,8 +54,8 @@ const AnimalCollection = () => {
           breed={animal.breed || 'Non spécifié'}
           location={animal.city}
           personalities={["Adorable"]}
-          type={animal.species as "dog" | "cat" | "rabbit"}
-          lifespan="10-15 ans" // Ajout d'une valeur par défaut pour lifespan
+          type={getAnimalType(animal.species)}
+          lifespan="10-15 ans"
         />
       ))}
     </div>
