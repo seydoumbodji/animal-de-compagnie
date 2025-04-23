@@ -62,7 +62,7 @@ const AnimalSubmissionForm = () => {
 
     setIsSubmitting(true);
     try {
-      // Prepare animal data without shelter contact info
+      // Prepare animal data with mapped field names for database columns
       const animalData = {
         name: values.name,
         species: values.species,
@@ -72,6 +72,8 @@ const AnimalSubmissionForm = () => {
         gender: values.gender,
         city: values.city,
         shelter_name: values.shelter_name,
+        email_refuge: values.shelter_email,  // Map to the correct database column
+        numero_telephone_refuge: values.shelter_phone, // Map to the correct database column
         description: values.description,
       };
 

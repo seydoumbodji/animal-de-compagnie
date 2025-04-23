@@ -56,7 +56,6 @@ export type Database = {
           numero_telephone_refuge: string | null
           shelter_name: string
           species: string
-          updated_at: string
         }
         Insert: {
           age_unit: string
@@ -72,7 +71,6 @@ export type Database = {
           numero_telephone_refuge?: string | null
           shelter_name: string
           species: string
-          updated_at?: string
         }
         Update: {
           age_unit?: string
@@ -88,7 +86,6 @@ export type Database = {
           numero_telephone_refuge?: string | null
           shelter_name?: string
           species?: string
-          updated_at?: string
         }
         Relationships: []
       }

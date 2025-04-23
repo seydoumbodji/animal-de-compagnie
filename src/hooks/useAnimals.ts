@@ -40,7 +40,7 @@ const fetchAnimals = async (): Promise<Animal[]> => {
     city: animal.city,
     shelter_name: animal.shelter_name,
     shelter_email: animal.email_refuge || '', // Map from email_refuge field in the database
-    shelter_phone: animal.numero_telephone_refuge || '', // Use the correct field name
+    shelter_phone: animal.numero_telephone_refuge || '', // Map from numero_telephone_refuge field in the database
     description: animal.description,
     photos: animal.photos || []
   })) as Animal[];
