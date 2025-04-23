@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -82,10 +81,26 @@ const PetCard = ({
   };
 
   const copyToClipboard = (text: string, type: "email" | "phone") => {
-    navigator.clipboard.writeText(text);
-    toast({
-      description: `${type === "email" ? "Email" : "Numéro de téléphone"} copié !`,
-    });
+    if (text) {
+      navigator.clipboard.writeText(text)
+        .then(() => {
+          toast({
+            description: `${type === "email" ? "Email" : "Numéro de téléphone"} copié !`,
+          });
+        })
+        .catch(err => {
+          console.error('Failed to copy text: ', err);
+          toast({
+            variant: "destructive",
+            description: "Impossible de copier le texte. Veuillez réessayer.",
+          });
+        });
+    } else {
+      toast({
+        variant: "destructive",
+        description: `${type === "email" ? "Email" : "Numéro de téléphone"} non disponible.`,
+      });
+    }
   };
 
   return (
