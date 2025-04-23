@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Heart, InfoIcon } from "lucide-react";
+import { Heart, InfoIcon, Mail, Phone } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   Dialog,
@@ -10,6 +10,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
+import { useToast } from "@/hooks/use-toast";
 
 interface PetCardProps {
   id: number;
@@ -22,7 +23,8 @@ interface PetCardProps {
   type: "dog" | "cat" | "rabbit";
   lifespan: string;
   shelterName: string;
-  adoptionLink?: string;
+  shelter_email: string;
+  shelter_phone: string;
   description: string;
 }
 
@@ -37,11 +39,13 @@ const PetCard = ({
   type, 
   lifespan,
   shelterName,
-  adoptionLink,
+  shelter_email,
+  shelter_phone,
   description
 }: PetCardProps) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [showInfoDialog, setShowInfoDialog] = useState(false);
+  const { toast } = useToast();
 
   const petTypeLabels = {
     dog: "Chien",
@@ -74,6 +78,13 @@ const PetCard = ({
       temperament: "Calme, social avec d'autres lapins",
       adoptionFee: "150€",
     }
+  };
+
+  const copyToClipboard = (text: string, type: "email" | "phone") => {
+    navigator.clipboard.writeText(text);
+    toast({
+      description: `${type === "email" ? "Email" : "Numéro de téléphone"} copié !`,
+    });
   };
 
   return (

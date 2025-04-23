@@ -105,7 +105,8 @@ const AnimalCollection = () => {
             type={getAnimalType(animal.species)}
             lifespan="10-15 ans"
             shelterName={animal.shelter_name}
-            adoptionLink={animal.adoption_link || undefined}
+            shelter_email={animal.shelter_email}
+            shelter_phone={animal.shelter_phone}
             description={animal.description}
           />
         ))}

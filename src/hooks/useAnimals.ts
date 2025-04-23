@@ -1,4 +1,3 @@
-
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -12,6 +11,8 @@ export type Animal = {
   gender: string;
   city: string;
   shelter_name: string;
+  shelter_email: string;
+  shelter_phone: string;
   description: string;
   photos: { storage_path: string }[];
 };
