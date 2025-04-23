@@ -1,4 +1,3 @@
-
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -40,7 +39,7 @@ const fetchAnimals = async (): Promise<Animal[]> => {
     city: animal.city,
     shelter_name: animal.shelter_name,
     shelter_email: animal.shelter_email || '',
-    shelter_phone: animal.shelter_phone || '',
+    shelter_phone: animal.numero_telephone_refuge || '', // Utilise le bon nom de champ
     description: animal.description,
     photos: animal.photos || []
   })) as Animal[];

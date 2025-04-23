@@ -43,7 +43,6 @@ export type Database = {
       }
       animals: {
         Row: {
-          adoption_link: string | null
           age_unit: string
           age_value: number
           breed: string | null
@@ -53,12 +52,12 @@ export type Database = {
           gender: string
           id: string
           name: string
+          numero_telephone_refuge: string | null
           shelter_name: string
           species: string
           updated_at: string
         }
         Insert: {
-          adoption_link?: string | null
           age_unit: string
           age_value: number
           breed?: string | null
@@ -68,12 +67,12 @@ export type Database = {
           gender: string
           id?: string
           name: string
+          numero_telephone_refuge?: string | null
           shelter_name: string
           species: string
           updated_at?: string
         }
         Update: {
-          adoption_link?: string | null
           age_unit?: string
           age_value?: number
           breed?: string | null
@@ -83,6 +82,7 @@ export type Database = {
           gender?: string
           id?: string
           name?: string
+          numero_telephone_refuge?: string | null
           shelter_name?: string
           species?: string
           updated_at?: string
