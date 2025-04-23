@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
+import { Mail, Phone } from 'lucide-react';
 import {
   Form,
   FormControl,
@@ -22,14 +23,15 @@ import { ImageUploader } from './ImageUploader';
 const formSchema = z.object({
   name: z.string().min(2, 'Le nom doit contenir au moins 2 caractères'),
   species: z.string().min(2, 'Veuillez spécifier l\'espèce'),
-  breed: z.string().optional(),
+  breed: z.string().min(2, 'Veuillez spécifier la race'),
   age_value: z.number().positive('L\'âge doit être positif'),
   age_unit: z.enum(['months', 'years']),
   gender: z.enum(['male', 'female']),
   city: z.string().min(2, 'Veuillez spécifier la ville'),
   shelter_name: z.string().min(2, 'Veuillez spécifier le nom du refuge'),
+  shelter_email: z.string().email('Veuillez fournir une adresse email valide'),
+  shelter_phone: z.string().min(10, 'Veuillez fournir un numéro de téléphone valide'),
   description: z.string().min(10, 'La description doit contenir au moins 10 caractères'),
-  adoption_link: z.string().url('Veuillez fournir un lien valide').optional(),
 });
 
 const AnimalSubmissionForm = () => {
@@ -42,6 +44,9 @@ const AnimalSubmissionForm = () => {
     defaultValues: {
       age_unit: 'years',
       gender: 'male',
+      breed: '',
+      shelter_email: '',
+      shelter_phone: '',
     },
   });
 
@@ -57,10 +62,22 @@ const AnimalSubmissionForm = () => {
 
     setIsSubmitting(true);
     try {
-      // Insert animal data - Fix: Pass values directly, not in an array
+      // Prepare animal data without shelter contact info
+      const animalData = {
+        name: values.name,
+        species: values.species,
+        breed: values.breed,
+        age_value: values.age_value,
+        age_unit: values.age_unit,
+        gender: values.gender,
+        city: values.city,
+        shelter_name: values.shelter_name,
+        description: values.description,
+      };
+
       const { data: animal, error: animalError } = await supabase
         .from('animals')
-        .insert(values) // Fix: Don't wrap in array here
+        .insert(animalData)
         .select()
         .single();
 
@@ -95,7 +112,6 @@ const AnimalSubmissionForm = () => {
         description: "L'animal a été ajouté avec succès",
       });
 
-      // Reset form
       form.reset();
       setPhotos([]);
     } catch (error) {
@@ -145,7 +161,7 @@ const AnimalSubmissionForm = () => {
           name="breed"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Race (optionnel)</FormLabel>
+              <FormLabel>Race</FormLabel>
               <FormControl>
                 <Input placeholder="Ex: Siamois" {...field} />
               </FormControl>
@@ -259,16 +275,15 @@ const AnimalSubmissionForm = () => {
 
         <FormField
           control={form.control}
-          name="description"
+          name="shelter_email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Description</FormLabel>
+              <FormLabel>Email du refuge</FormLabel>
               <FormControl>
-                <Textarea 
-                  placeholder="Décrivez la personnalité et l'histoire de l'animal..."
-                  className="min-h-[120px]"
-                  {...field}
-                />
+                <div className="relative">
+                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
+                  <Input className="pl-10" placeholder="Ex: contact@spa-paris.fr" {...field} />
+                </div>
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -277,13 +292,31 @@ const AnimalSubmissionForm = () => {
 
         <FormField
           control={form.control}
-          name="adoption_link"
+          name="shelter_phone"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Lien d'adoption (optionnel)</FormLabel>
+              <FormLabel>Téléphone du refuge</FormLabel>
               <FormControl>
-                <Input 
-                  placeholder="Ex: https://www.spa.fr/adopter/fiche-animal/..."
+                <div className="relative">
+                  <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
+                  <Input className="pl-10" placeholder="Ex: 0123456789" {...field} />
+                </div>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="description"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Description</FormLabel>
+              <FormControl>
+                <Textarea 
+                  placeholder="Décrivez la personnalité et l'histoire de l'animal..."
+                  className="min-h-[120px]"
                   {...field}
                 />
               </FormControl>
@@ -312,3 +345,4 @@ const AnimalSubmissionForm = () => {
 };
 
 export default AnimalSubmissionForm;
+
