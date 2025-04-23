@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -218,21 +219,19 @@ const PetCard = ({
             </div>
             
             <div className="pt-2 space-y-2">
-              {adoptionLink && (
-                <Button 
-                  className="w-full bg-purple-500 hover:bg-purple-600" 
-                  asChild
-                >
-                  <a href={adoptionLink} target="_blank" rel="noopener noreferrer">
-                    Adopter {name}
-                  </a>
-                </Button>
-              )}
               <Button 
-                className="w-full bg-purple-500 hover:bg-purple-600"
-                onClick={() => setShowInfoDialog(false)}
+                className="w-full bg-purple-500 hover:bg-purple-600 flex items-center justify-center gap-2"
+                onClick={() => copyToClipboard(shelter_phone, "phone")}
               >
-                Rencontrer {name}
+                <Phone size={16} />
+                Téléphone du refuge
+              </Button>
+              <Button 
+                className="w-full bg-purple-500 hover:bg-purple-600 flex items-center justify-center gap-2"
+                onClick={() => copyToClipboard(shelter_email, "email")}
+              >
+                <Mail size={16} />
+                Email du refuge
               </Button>
             </div>
           </div>
