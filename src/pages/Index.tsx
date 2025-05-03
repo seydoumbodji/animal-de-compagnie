@@ -22,6 +22,13 @@ const Index = () => {
     }, 100);
   };
 
+  const scrollToPetsSection = () => {
+    const petsSection = document.getElementById('pets-section');
+    if (petsSection) {
+      petsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -118,7 +125,10 @@ const Index = () => {
           </div>
           
           <div className="mt-12 text-center">
-            <Button className="bg-purple-500 hover:bg-purple-600">
+            <Button 
+              className="bg-purple-500 hover:bg-purple-600"
+              onClick={scrollToPetsSection}
+            >
               Commencer l'aventure
             </Button>
           </div>
