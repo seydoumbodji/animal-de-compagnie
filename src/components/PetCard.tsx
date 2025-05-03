@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -148,10 +149,7 @@ const PetCard = ({
             ))}
           </div>
           
-          <div className="flex space-x-2">
-            <Button className="w-full bg-purple-500 hover:bg-purple-600">
-              Rencontrer
-            </Button>
+          <div className="flex justify-center">
             <Button 
               variant="outline" 
               className="border-purple-500 text-purple-500 hover:bg-purple-50 flex items-center gap-1"
