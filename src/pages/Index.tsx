@@ -91,7 +91,7 @@ const Index = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
               <div className="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="font-bold text-2xl text-purple-600">1</span>
@@ -105,20 +105,12 @@ const Index = () => {
                 <span className="font-bold text-2xl text-purple-600">2</span>
               </div>
               <h3 className="font-bold text-xl mb-2">Rencontrez</h3>
-              <p className="text-gray-600">Planifiez une rencontre virtuelle avec l'animal qui vous plaît</p>
+              <p className="text-gray-600">Cliquez sur le bouton Info de l'animal qui vous plait pour avoir plus d'informations sur lui. Notez les contacts du refuge concerné et prenez rendez-vous pour rencontrer votre futur compagnon en personne.</p>
             </div>
             
             <div className="text-center">
               <div className="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="font-bold text-2xl text-purple-600">3</span>
-              </div>
-              <h3 className="font-bold text-xl mb-2">Adoptez</h3>
-              <p className="text-gray-600">Complétez le formulaire d'adoption et rencontrez votre futur compagnon en personne</p>
-            </div>
-            
-            <div className="text-center">
-              <div className="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="font-bold text-2xl text-purple-600">4</span>
               </div>
               <h3 className="font-bold text-xl mb-2">Accueillez</h3>
               <p className="text-gray-600">Ramenez votre nouveau compagnon à la maison et commencez votre nouvelle vie ensemble</p>
