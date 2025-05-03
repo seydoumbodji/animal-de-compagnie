@@ -18,8 +18,8 @@ const successStories: SuccessStory[] = [
     id: 1,
     title: "Du refuge à la famille",
     description: "Après 2 ans au refuge, Max a trouvé sa famille pour toujours. Maintenant il profite de longues balades et de câlins quotidiens.",
-    beforeImage: "https://images.unsplash.com/photo-1588943211346-0908a1fb0b01?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-    afterImage: "https://images.unsplash.com/photo-1601758174114-e711c0cbaa69?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+    beforeImage: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+    afterImage: "https://images.unsplash.com/photo-1600804340584-c7db2eacf0bf?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
     petName: "Max",
     ownerName: "Famille Martin"
   },
@@ -27,8 +27,8 @@ const successStories: SuccessStory[] = [
     id: 2,
     title: "Une nouvelle vie pour Luna",
     description: "Luna était craintive et stressée. Aujourd'hui, elle s'épanouit dans son nouveau foyer avec son amie féline Mia.",
-    beforeImage: "https://images.unsplash.com/photo-1554089672-7661925cf8bf?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-    afterImage: "https://images.unsplash.com/photo-1608032364895-84d9dbc1a3a7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+    beforeImage: "https://images.unsplash.com/photo-1501820488136-72669149e0d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+    afterImage: "https://images.unsplash.com/photo-1592194996308-7b43878e84a6?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
     petName: "Luna",
     ownerName: "Sophie D."
   },
@@ -36,8 +36,8 @@ const successStories: SuccessStory[] = [
     id: 3,
     title: "Le bonheur de Caramel",
     description: "Abandonné à 8 ans, ce lapin a retrouvé joie de vivre avec sa nouvelle famille qui lui offre l'attention qu'il mérite.",
-    beforeImage: "https://images.unsplash.com/photo-1576502733340-4acbd528b538?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-    afterImage: "https://images.unsplash.com/photo-1585574234148-1031d167c052?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+    beforeImage: "https://images.unsplash.com/photo-1583301286816-f4f05e1e8b25?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+    afterImage: "https://images.unsplash.com/photo-1591382386627-349b692688ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
     petName: "Caramel",
     ownerName: "Thomas et Julie"
   }
