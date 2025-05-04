@@ -1,5 +1,5 @@
 
-import { Dog, Cat, Rabbit, Heart, Mail, Phone } from "lucide-react";
+import { Dog, Cat, Rabbit, Heart, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
@@ -81,14 +81,9 @@ const Footer = () => {
             <h4 className="text-lg font-semibold mb-4">Contact</h4>
             <ul className="space-y-2">
               <li>
-                <a href="mailto:contact@cuddlebuddies.fr" className="text-gray-300 hover:text-purple-400 flex items-center">
+                <Link to="/contact" className="text-gray-300 hover:text-purple-400 flex items-center">
                   <Mail className="mr-2 h-4 w-4" /> contact@cuddlebuddies.fr
-                </a>
-              </li>
-              <li>
-                <a href="tel:0123456789" className="text-gray-300 hover:text-purple-400 flex items-center">
-                  <Phone className="mr-2 h-4 w-4" /> 01 23 45 67 89
-                </a>
+                </Link>
               </li>
             </ul>
             

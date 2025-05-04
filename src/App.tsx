@@ -11,6 +11,7 @@ import Mission from "./pages/Mission";
 import HowToAdopt from "./pages/HowToAdopt";
 import AdoptionTips from "./pages/AdoptionTips";
 import Blog from "./pages/Blog";
+import Contact from "./pages/Contact";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,7 @@ const App = () => (
             <Route path="/comment-adopter" element={<HowToAdopt />} />
             <Route path="/conseils-adoption" element={<AdoptionTips />} />
             <Route path="/blog" element={<Blog />} />
+            <Route path="/contact" element={<Contact />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
