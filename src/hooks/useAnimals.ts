@@ -19,12 +19,18 @@ export type Animal = {
 };
 
 const fetchAnimals = async (): Promise<Animal[]> => {
+  console.log("Fetching animals from database...");
+  // Ajout d'un filtre pour exclure les animaux ajoutés dans les dernières 24 heures
+  const twentyFourHoursAgo = new Date();
+  twentyFourHoursAgo.setHours(twentyFourHoursAgo.getHours() - 24);
+  
   const { data: animals, error: animalsError } = await supabase
     .from('animals')
     .select(`
       *,
       photos:animal_photos(storage_path)
-    `);
+    `)
+    .lt('created_at', twentyFourHoursAgo.toISOString());
 
   if (animalsError) throw animalsError;
   
@@ -39,8 +45,8 @@ const fetchAnimals = async (): Promise<Animal[]> => {
     gender: animal.gender,
     city: animal.city,
     shelter_name: animal.shelter_name,
-    shelter_email: animal.email_refuge || '', // Map from email_refuge field in the database
-    shelter_phone: animal.numero_telephone_refuge || '', // Map from numero_telephone_refuge field in the database
+    shelter_email: animal.email_refuge || '', 
+    shelter_phone: animal.numero_telephone_refuge || '',
     description: animal.description,
     photos: animal.photos || []
   })) as Animal[];
@@ -53,5 +59,7 @@ export const useAnimals = () => {
     queryKey: ['animals'],
     queryFn: fetchAnimals,
     refetchInterval: 24 * 60 * 60 * 1000, // Refetch every 24 hours (24h * 60min * 60sec * 1000ms)
+    staleTime: 24 * 60 * 60 * 1000, // Consider data fresh for 24 hours
+    cacheTime: 24 * 60 * 60 * 1000, // Keep data in cache for 24 hours
   });
 };
