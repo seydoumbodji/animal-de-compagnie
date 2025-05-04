@@ -7,6 +7,10 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import ShelterSubmission from "./pages/ShelterSubmission";
 import { ThemeProvider } from "next-themes";
+import Mission from "./pages/Mission";
+import HowToAdopt from "./pages/HowToAdopt";
+import AdoptionTips from "./pages/AdoptionTips";
+import Blog from "./pages/Blog";
 
 const queryClient = new QueryClient();
 
@@ -19,6 +23,10 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/soumettre-animal" element={<ShelterSubmission />} />
+            <Route path="/notre-mission" element={<Mission />} />
+            <Route path="/comment-adopter" element={<HowToAdopt />} />
+            <Route path="/conseils-adoption" element={<AdoptionTips />} />
+            <Route path="/blog" element={<Blog />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
