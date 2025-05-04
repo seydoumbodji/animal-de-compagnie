@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -61,7 +60,6 @@ const PetCard = ({
       exercise: "Promenades quotidiennes, jeux",
       medicalNeeds: "Vaccinations annuelles, visites vétérinaires régulières",
       temperament: "Sociale, fidèle, active",
-      adoptionFee: "250€",
     },
     cat: {
       lifespan: "12-15 ans",
@@ -69,7 +67,6 @@ const PetCard = ({
       exercise: "Jeux interactifs, espace pour grimper",
       medicalNeeds: "Vaccinations annuelles, soins dentaires",
       temperament: "Indépendant, curieux, affectueux",
-      adoptionFee: "200€",
     },
     rabbit: {
       lifespan: "8-12 ans",
@@ -77,7 +74,6 @@ const PetCard = ({
       exercise: "Espace pour sauter et explorer",
       medicalNeeds: "Contrôles vétérinaires réguliers",
       temperament: "Calme, social avec d'autres lapins",
-      adoptionFee: "150€",
     }
   };
 
@@ -166,7 +162,7 @@ const PetCard = ({
       </Card>
 
       <Dialog open={showInfoDialog} onOpenChange={setShowInfoDialog}>
-        <DialogContent className="max-w-md">
+        <DialogContent className="max-w-md max-h-[85vh] overflow-y-auto">
           <DialogHeader>
             <div className="flex items-center gap-3">
               <img 
@@ -217,16 +213,12 @@ const PetCard = ({
                 <p className="text-sm text-gray-600">{petInfo[type].medicalNeeds}</p>
               </div>
               <div>
-                <h4 className="font-medium text-purple-700">Frais d'adoption</h4>
-                <p className="text-sm text-gray-600">{petInfo[type].adoptionFee}</p>
-              </div>
-              <div>
                 <h4 className="font-medium text-purple-700">Refuge</h4>
                 <p className="text-sm text-gray-600">{shelterName}</p>
               </div>
             </div>
 
-            <div className="mt-4">
+            <div>
               <h4 className="font-medium text-purple-700 mb-1">Description</h4>
               <p className="text-sm text-gray-600">{description}</p>
             </div>
