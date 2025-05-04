@@ -52,6 +52,6 @@ export const useAnimals = () => {
   return useQuery({
     queryKey: ['animals'],
     queryFn: fetchAnimals,
-    refetchInterval: 5 * 60 * 1000, // Refetch every 5 minutes
+    refetchInterval: 24 * 60 * 60 * 1000, // Refetch every 24 hours (24h * 60min * 60sec * 1000ms)
   });
 };
