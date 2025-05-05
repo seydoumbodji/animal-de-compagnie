@@ -6,7 +6,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Mail } from 'lucide-react';
-import { useToast } from '@/components/ui/use-toast';
+import { useToast } from '@/hooks/use-toast';
+import NewsletterSignup from '@/components/NewsletterSignup';
 
 const Contact = () => {
   const { toast } = useToast();
@@ -140,6 +141,14 @@ const Contact = () => {
               Si votre demande concerne une urgence concernant un animal, veuillez l'indiquer clairement dans l'objet
               de votre message pour que nous puissions la traiter en priorité.
             </p>
+          </div>
+          
+          <div className="mt-10 bg-purple-100 rounded-lg p-6 md:p-8 text-center">
+            <h2 className="text-2xl font-bold mb-2">Restez informés !</h2>
+            <p className="text-gray-700 mb-6 max-w-2xl mx-auto">
+              Recevez nos derniers articles, conseils d'adoption et histoires inspirantes directement dans votre boîte mail.
+            </p>
+            <NewsletterSignup className="max-w-md mx-auto" />
           </div>
         </div>
       </main>

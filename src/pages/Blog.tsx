@@ -1,9 +1,9 @@
-
 import React, { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Clock, User } from 'lucide-react';
+import NewsletterSignup from '@/components/NewsletterSignup';
 
 const Blog = () => {
   // Catégories
@@ -157,16 +157,7 @@ const Blog = () => {
             <p className="text-gray-700 mb-6 max-w-2xl mx-auto">
               Recevez nos derniers articles, conseils d'adoption et histoires inspirantes directement dans votre boîte mail.
             </p>
-            <div className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
-              <input 
-                type="email" 
-                placeholder="Votre adresse email" 
-                className="flex-grow px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
-              />
-              <Button className="bg-purple-600 hover:bg-purple-700">
-                S'abonner
-              </Button>
-            </div>
+            <NewsletterSignup className="max-w-md mx-auto" />
           </div>
         </div>
       </main>

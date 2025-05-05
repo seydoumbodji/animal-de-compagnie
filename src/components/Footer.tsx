@@ -1,6 +1,7 @@
 
 import { Dog, Cat, Rabbit, Heart, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
+import NewsletterSignup from "./NewsletterSignup";
 
 const Footer = () => {
   return (
@@ -89,16 +90,7 @@ const Footer = () => {
             
             <div className="mt-6">
               <h5 className="font-medium mb-2">Inscrivez-vous à notre newsletter</h5>
-              <div className="flex">
-                <input 
-                  type="email" 
-                  placeholder="Votre email" 
-                  className="px-3 py-2 bg-gray-700 text-white rounded-l-md focus:outline-none focus:ring-1 focus:ring-purple-400 flex-grow"
-                />
-                <button className="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-r-md">
-                  OK
-                </button>
-              </div>
+              <NewsletterSignup darkMode={true} />
             </div>
           </div>
         </div>

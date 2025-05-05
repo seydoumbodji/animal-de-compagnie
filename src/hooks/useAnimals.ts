@@ -2,17 +2,21 @@
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery } from "@tanstack/react-query";
 
-// Définition du type Animal si elle n'existe pas dans types.ts
+// Définition du type Animal
 interface Animal {
   id: string;
   name: string;
-  type: string;
-  breed: string;
-  age: number;
+  species: string;
+  breed: string | null;
+  age_value: number;
+  age_unit: string;
   gender: string;
-  description?: string;
-  image_url?: string;
-  created_at?: string;
+  description: string;
+  shelter_name: string;
+  city: string;
+  email_refuge?: string | null;
+  numero_telephone_refuge?: string | null;
+  created_at: string;
   [key: string]: any;
 }
 
