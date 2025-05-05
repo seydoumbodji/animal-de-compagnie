@@ -1,65 +1,82 @@
 
-import { useQuery } from "@tanstack/react-query";
+import { Animal } from "@/integrations/supabase/types";
 import { supabase } from "@/integrations/supabase/client";
+import { useQuery } from "@tanstack/react-query";
 
-export type Animal = {
-  id: string;
-  name: string;
-  species: string;
-  breed: string | null;
-  age_value: number;
-  age_unit: string;
-  gender: string;
-  city: string;
-  shelter_name: string;
-  shelter_email: string;
-  shelter_phone: string;
-  description: string;
-  photos: { storage_path: string }[];
+// Fetch all animals from Supabase
+const fetchAnimals = async (): Promise<Animal[]> => {
+  const { data, error } = await supabase
+    .from("animals")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("Error fetching animals:", error);
+    throw new Error("Failed to fetch animals");
+  }
+
+  return data || [];
 };
 
-const fetchAnimals = async (): Promise<Animal[]> => {
-  console.log("Fetching animals from database...");
-  // Ajout d'un filtre pour exclure les animaux ajoutés dans les dernières 24 heures
+// Filter out animals created in the last 24 hours
+const filterRecentAnimals = (animals: Animal[]): Animal[] => {
+  // Get the timestamp from 24 hours ago
   const twentyFourHoursAgo = new Date();
   twentyFourHoursAgo.setHours(twentyFourHoursAgo.getHours() - 24);
   
-  const { data: animals, error: animalsError } = await supabase
-    .from('animals')
-    .select(`
-      *,
-      photos:animal_photos(storage_path)
-    `)
-    .lt('created_at', twentyFourHoursAgo.toISOString());
-
-  if (animalsError) throw animalsError;
-  
-  // Ensure data conforms to the Animal type
-  const typedAnimals = animals?.map(animal => ({
-    id: animal.id,
-    name: animal.name,
-    species: animal.species,
-    breed: animal.breed,
-    age_value: animal.age_value,
-    age_unit: animal.age_unit,
-    gender: animal.gender,
-    city: animal.city,
-    shelter_name: animal.shelter_name,
-    shelter_email: animal.email_refuge || '', 
-    shelter_phone: animal.numero_telephone_refuge || '',
-    description: animal.description,
-    photos: animal.photos || []
-  })) as Animal[];
-  
-  return typedAnimals || [];
+  // Filter out animals that were created less than 24 hours ago
+  return animals.filter((animal) => {
+    if (!animal.created_at) return true;
+    
+    const createdAt = new Date(animal.created_at);
+    return createdAt < twentyFourHoursAgo;
+  });
 };
 
+/**
+ * Custom hook to fetch animals from Supabase
+ * Animals added in the last 24 hours are filtered out
+ */
 export const useAnimals = () => {
-  return useQuery({
-    queryKey: ['animals'],
+  const {
+    data: animals,
+    isLoading,
+    error,
+    refetch,
+  } = useQuery({
+    queryKey: ["animals"],
     queryFn: fetchAnimals,
-    refetchInterval: 24 * 60 * 60 * 1000, // Refetch every 24 hours (24h * 60min * 60sec * 1000ms)
-    staleTime: 24 * 60 * 60 * 1000, // Consider data fresh for 24 hours
-    cacheTime: 24 * 60 * 60 * 1000, // Keep data in cache for 24 hours
+    select: filterRecentAnimals,
+    staleTime: 1000 * 60 * 60, // 1 hour
+    gcTime: 1000 * 60 * 60 * 2, // 2 hours
+  });
+
+  return {
+    animals: animals || [],
+    isLoading,
+    error,
+    refetch,
+  };
+};
+
+// Fetch a single animal by ID
+export const useAnimal = (id: string) => {
+  return useQuery({
+    queryKey: ["animal", id],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("animals")
+        .select("*")
+        .eq("id", id)
+        .single();
+
+      if (error) {
+        console.error("Error fetching animal:", error);
+        throw new Error("Failed to fetch animal");
+      }
+
+      return data;
+    },
+    enabled: !!id,
   });
 };

@@ -16,7 +16,7 @@ const Blog = () => {
       date: "15 avril 2023",
       readTime: "8 min",
       category: "Bien-être",
-      image: "/lovable-uploads/9b3010b1-afd3-496b-bcdf-afb82f001880.png"
+      image: "/placeholder.svg"
     },
     {
       id: 2,
@@ -57,6 +57,16 @@ const Blog = () => {
       readTime: "11 min",
       category: "Chats",
       image: "/placeholder.svg"
+    },
+    {
+      id: 6,
+      title: "Histoires inspirantes d'animaux sauvés et de leurs nouveaux propriétaires",
+      excerpt: "Des histoires touchantes de sauvetages d'animaux et les liens profonds qui se sont formés avec leurs familles adoptives.",
+      author: "Claire Moreau",
+      date: "3 octobre 2022",
+      readTime: "12 min",
+      category: "Témoignages",
+      image: "/placeholder.svg"
     }
   ];
 
@@ -91,47 +101,9 @@ const Blog = () => {
             </div>
           </div>
           
-          {/* Article en vedette */}
-          <div className="bg-white rounded-lg shadow-md overflow-hidden mb-12">
-            <div className="md:flex">
-              <div className="md:w-1/2">
-                <img 
-                  src={blogPosts[0].image} 
-                  alt={blogPosts[0].title}
-                  className="w-full h-64 md:h-full object-cover" 
-                />
-              </div>
-              <div className="p-6 md:w-1/2 md:flex md:flex-col md:justify-between">
-                <div>
-                  <div className="flex items-center mb-2">
-                    <span className="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded">
-                      {blogPosts[0].category}
-                    </span>
-                  </div>
-                  <h2 className="text-2xl font-bold mb-2">{blogPosts[0].title}</h2>
-                  <p className="text-gray-600 mb-4">{blogPosts[0].excerpt}</p>
-                </div>
-                
-                <div className="mt-4">
-                  <div className="flex items-center text-sm text-gray-500 mb-4">
-                    <User className="h-4 w-4 mr-1" />
-                    <span className="mr-4">{blogPosts[0].author}</span>
-                    <Calendar className="h-4 w-4 mr-1" />
-                    <span className="mr-4">{blogPosts[0].date}</span>
-                    <Clock className="h-4 w-4 mr-1" />
-                    <span>{blogPosts[0].readTime} de lecture</span>
-                  </div>
-                  <Button className="bg-purple-500 hover:bg-purple-600">
-                    Lire l'article complet
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </div>
-          
           {/* Liste des articles */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-            {blogPosts.slice(1).map((post) => (
+            {blogPosts.map((post) => (
               <div key={post.id} className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
                 <img 
                   src={post.image} 
