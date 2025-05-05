@@ -1,11 +1,30 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { Clock, User, Calendar } from 'lucide-react';
+import { Clock, User } from 'lucide-react';
 
 const Blog = () => {
+  // Catégories
+  const categories = [
+    "Toutes", "Bien-être", "Conseils pratiques", "Chiens", "Chats", "Lapins", "Témoignages", "Événements"
+  ];
+
+  // Images des catégories
+  const categoryImages = {
+    "Bien-être": "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+    "Conseils pratiques": "https://images.unsplash.com/photo-1583511655826-05700a52f0d3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+    "Chiens": "https://images.unsplash.com/photo-1543466835-00a7907e9de1?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+    "Chats": "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+    "Lapins": "https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+    "Témoignages": "https://images.unsplash.com/photo-1516467508483-a7212febe31a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+    "Événements": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+  };
+
+  // State pour la catégorie active
+  const [activeCategory, setActiveCategory] = useState("Toutes");
+
   // Les articles de blog
   const blogPosts = [
     {
@@ -67,13 +86,23 @@ const Blog = () => {
       readTime: "12 min",
       category: "Témoignages",
       image: "/placeholder.svg"
+    },
+    {
+      id: 7,
+      title: "Journée portes ouvertes : rencontrez nos protégés et bénévoles",
+      excerpt: "Venez nous rendre visite lors de notre journée portes ouvertes annuelle pour rencontrer nos animaux et l'équipe qui prend soin d'eux.",
+      author: "Équipe CuddleBuddies",
+      date: "20 mai 2023",
+      readTime: "5 min",
+      category: "Événements",
+      image: "/placeholder.svg"
     }
   ];
 
-  // Catégories
-  const categories = [
-    "Toutes", "Bien-être", "Conseils pratiques", "Chiens", "Chats", "Lapins", "Témoignages", "Événements"
-  ];
+  // Filtrer les articles selon la catégorie sélectionnée
+  const filteredPosts = activeCategory === "Toutes" 
+    ? blogPosts 
+    : blogPosts.filter(post => post.category === activeCategory);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -92,8 +121,9 @@ const Blog = () => {
               {categories.map((category, index) => (
                 <Button 
                   key={index} 
-                  variant={index === 0 ? "default" : "outline"}
-                  className={index === 0 ? "bg-purple-500 hover:bg-purple-600" : ""}
+                  variant={category === activeCategory ? "default" : "outline"}
+                  className={category === activeCategory ? "bg-purple-500 hover:bg-purple-600" : ""}
+                  onClick={() => setActiveCategory(category)}
                 >
                   {category}
                 </Button>
@@ -101,9 +131,33 @@ const Blog = () => {
             </div>
           </div>
           
+          {/* Affichage des catégories avec images */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-10">
+            {categories.slice(1).map((category) => (
+              <div 
+                key={category}
+                className={`relative overflow-hidden rounded-lg cursor-pointer transition-all duration-300 ${
+                  activeCategory === category ? "ring-4 ring-purple-500" : ""
+                }`}
+                onClick={() => setActiveCategory(category)}
+              >
+                <div className="aspect-w-16 aspect-h-9">
+                  <img 
+                    src={categoryImages[category]} 
+                    alt={`Catégorie ${category}`} 
+                    className="object-cover w-full h-full"
+                  />
+                  <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                    <h3 className="text-white text-xl font-bold">{category}</h3>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          
           {/* Liste des articles */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-            {blogPosts.map((post) => (
+            {filteredPosts.map((post) => (
               <div key={post.id} className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
                 <img 
                   src={post.image} 
