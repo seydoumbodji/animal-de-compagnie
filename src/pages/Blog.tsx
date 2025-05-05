@@ -11,17 +11,6 @@ const Blog = () => {
     "Toutes", "Bien-être", "Conseils pratiques", "Chiens", "Chats", "Lapins", "Témoignages", "Événements"
   ];
 
-  // Images des catégories
-  const categoryImages = {
-    "Bien-être": "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    "Conseils pratiques": "https://images.unsplash.com/photo-1583511655826-05700a52f0d3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    "Chiens": "https://images.unsplash.com/photo-1543466835-00a7907e9de1?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    "Chats": "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    "Lapins": "https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    "Témoignages": "https://images.unsplash.com/photo-1516467508483-a7212febe31a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    "Événements": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-  };
-
   // State pour la catégorie active
   const [activeCategory, setActiveCategory] = useState("Toutes");
 
@@ -129,30 +118,6 @@ const Blog = () => {
                 </Button>
               ))}
             </div>
-          </div>
-          
-          {/* Affichage des catégories avec images */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-10">
-            {categories.slice(1).map((category) => (
-              <div 
-                key={category}
-                className={`relative overflow-hidden rounded-lg cursor-pointer transition-all duration-300 ${
-                  activeCategory === category ? "ring-4 ring-purple-500" : ""
-                }`}
-                onClick={() => setActiveCategory(category)}
-              >
-                <div className="aspect-w-16 aspect-h-9">
-                  <img 
-                    src={categoryImages[category]} 
-                    alt={`Catégorie ${category}`} 
-                    className="object-cover w-full h-full"
-                  />
-                  <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-                    <h3 className="text-white text-xl font-bold">{category}</h3>
-                  </div>
-                </div>
-              </div>
-            ))}
           </div>
           
           {/* Liste des articles */}

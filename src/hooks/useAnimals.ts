@@ -1,7 +1,20 @@
 
-import { Animal } from "@/integrations/supabase/types";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery } from "@tanstack/react-query";
+
+// Définition du type Animal si elle n'existe pas dans types.ts
+interface Animal {
+  id: string;
+  name: string;
+  type: string;
+  breed: string;
+  age: number;
+  gender: string;
+  description?: string;
+  image_url?: string;
+  created_at?: string;
+  [key: string]: any;
+}
 
 // Fetch all animals from Supabase
 const fetchAnimals = async (): Promise<Animal[]> => {
@@ -75,7 +88,7 @@ export const useAnimal = (id: string) => {
         throw new Error("Failed to fetch animal");
       }
 
-      return data;
+      return data as Animal;
     },
     enabled: !!id,
   });
