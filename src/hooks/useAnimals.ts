@@ -17,6 +17,13 @@ export interface Animal {
   email_refuge?: string | null;
   numero_telephone_refuge?: string | null;
   created_at: string;
+  photos?: {
+    id: string;
+    animal_id: string;
+    storage_path: string;
+    position: number;
+    created_at: string;
+  }[];
   [key: string]: any;
 }
 
@@ -24,7 +31,7 @@ export interface Animal {
 const fetchAnimals = async (): Promise<Animal[]> => {
   const { data, error } = await supabase
     .from("animals")
-    .select("*")
+    .select(`*, photos:animal_photos(*)`)
     .order("created_at", { ascending: false });
 
   if (error) {
@@ -83,7 +90,7 @@ export const useAnimal = (id: string) => {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("animals")
-        .select("*")
+        .select(`*, photos:animal_photos(*)`)
         .eq("id", id)
         .single();
 

@@ -25,6 +25,7 @@ const AnimalCollection = () => {
     return (
       <div className="text-center py-10">
         <p className="text-red-500">Une erreur est survenue lors du chargement des animaux.</p>
+        <p className="text-sm text-gray-500">{error.message}</p>
       </div>
     );
   }
@@ -46,6 +47,8 @@ const AnimalCollection = () => {
   };
 
   const getPhotoUrl = (storagePath: string) => {
+    if (!storagePath) return 'https://images.unsplash.com/photo-1585574234148-1031d167c052';
+    
     const { data } = supabase.storage.from('animal_photos').getPublicUrl(storagePath);
     return data.publicUrl;
   };
@@ -96,7 +99,7 @@ const AnimalCollection = () => {
             key={animal.id}
             id={Number(animal.id)}
             name={animal.name}
-            image={animal.photos?.[0]?.storage_path 
+            image={animal.photos && animal.photos.length > 0 && animal.photos[0]?.storage_path 
               ? getPhotoUrl(animal.photos[0].storage_path)
               : 'https://images.unsplash.com/photo-1585574234148-1031d167c052'}
             age={`${animal.age_value} ${animal.age_unit}`}
