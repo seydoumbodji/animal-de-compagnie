@@ -8,6 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Mail } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import NewsletterSignup from '@/components/NewsletterSignup';
+import { supabase } from '@/integrations/supabase/client';
 
 const Contact = () => {
   const { toast } = useToast();
@@ -31,19 +32,33 @@ const Contact = () => {
     
     setIsSubmitting(true);
     
-    // Here you would normally send this data to a backend
-    // This is just a simulation for now
-    setTimeout(() => {
+    try {
+      const { error } = await supabase.functions.invoke('send-contact-email', {
+        body: { name, email, subject, message }
+      });
+      
+      if (error) throw error;
+      
       toast({
         title: "Message envoyé",
         description: "Nous vous répondrons dans les plus brefs délais.",
       });
+      
+      // Réinitialiser le formulaire
       setName('');
       setEmail('');
       setSubject('');
       setMessage('');
+    } catch (error) {
+      console.error("Erreur lors de l'envoi du message:", error);
+      toast({
+        title: "Erreur",
+        description: "Un problème est survenu lors de l'envoi de votre message. Veuillez réessayer.",
+        variant: "destructive"
+      });
+    } finally {
       setIsSubmitting(false);
-    }, 1500);
+    }
   };
 
   return (
