@@ -31,11 +31,16 @@ const NewsletterSignup = ({ className = '', darkMode = false }: NewsletterSignup
 
     try {
       // Vérifier si l'email existe déjà
-      const { data: existingSubscribers } = await supabase
+      const { data: existingSubscribers, error: checkError } = await supabase
         .from('newsletter_subscribers')
         .select('id')
         .eq('email', email)
         .limit(1);
+
+      if (checkError) {
+        console.error('Erreur lors de la vérification de l\'email:', checkError);
+        throw new Error(checkError.message);
+      }
 
       if (existingSubscribers && existingSubscribers.length > 0) {
         toast({
@@ -48,13 +53,13 @@ const NewsletterSignup = ({ className = '', darkMode = false }: NewsletterSignup
       }
 
       // Insérer le nouvel abonné
-      const { error } = await supabase
+      const { error: insertError } = await supabase
         .from('newsletter_subscribers')
         .insert([{ email }]);
 
-      if (error) {
-        console.error('Erreur lors de l\'inscription:', error);
-        throw new Error(error.message);
+      if (insertError) {
+        console.error('Erreur lors de l\'inscription:', insertError);
+        throw new Error(insertError.message);
       }
 
       toast({
@@ -65,12 +70,12 @@ const NewsletterSignup = ({ className = '', darkMode = false }: NewsletterSignup
       // Réinitialiser le formulaire
       setEmail('');
     } catch (error) {
+      console.error('Erreur complète:', error);
       toast({
         title: "Échec de l'inscription",
         description: "Une erreur s'est produite. Veuillez réessayer.",
         variant: "destructive",
       });
-      console.error(error);
     } finally {
       setIsSubmitting(false);
     }

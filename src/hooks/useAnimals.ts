@@ -3,7 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useQuery } from "@tanstack/react-query";
 
 // Définition du type Animal
-interface Animal {
+export interface Animal {
   id: string;
   name: string;
   species: string;
@@ -56,7 +56,7 @@ const filterRecentAnimals = (animals: Animal[]): Animal[] => {
  */
 export const useAnimals = () => {
   const {
-    data: animals,
+    data,
     isLoading,
     error,
     refetch,
@@ -69,7 +69,7 @@ export const useAnimals = () => {
   });
 
   return {
-    animals: animals || [],
+    animals: data || [],
     isLoading,
     error,
     refetch,
