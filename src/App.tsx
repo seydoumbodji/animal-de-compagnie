@@ -9,7 +9,7 @@ import ShelterSubmission from "./pages/ShelterSubmission";
 import { ThemeProvider } from "next-themes";
 import Mission from "./pages/Mission";
 import HowToAdopt from "./pages/HowToAdopt";
-import AdoptionTips from "./pages/AdoptionTips";
+import AdoptionTipsWrapper from "./pages/AdoptionTipsWrapper";
 import Blog from "./pages/Blog";
 import Contact from "./pages/Contact";
 
@@ -26,7 +26,7 @@ const App = () => (
             <Route path="/soumettre-animal" element={<ShelterSubmission />} />
             <Route path="/notre-mission" element={<Mission />} />
             <Route path="/comment-adopter" element={<HowToAdopt />} />
-            <Route path="/conseils-adoption" element={<AdoptionTips />} />
+            <Route path="/conseils-adoption" element={<AdoptionTipsWrapper />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/contact" element={<Contact />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

@@ -1,9 +1,20 @@
 
 import { Dog, Cat, Rabbit, Heart, Mail } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import NewsletterSignup from "./NewsletterSignup";
 
 const Footer = () => {
+  const navigate = useNavigate();
+
+  // Fonction pour naviguer vers une page et défiler vers le haut
+  const navigateToPage = (path: string) => {
+    navigate(path);
+    // Utilisation d'un court délai pour s'assurer que la navigation s'est terminée
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 100);
+  };
+
   return (
     <footer className="bg-gray-800 text-white pt-12 pb-6">
       <div className="container mx-auto px-4">
@@ -56,24 +67,36 @@ const Footer = () => {
             <h4 className="text-lg font-semibold mb-4">À propos</h4>
             <ul className="space-y-2">
               <li>
-                <Link to="/notre-mission" className="text-gray-300 hover:text-purple-400">
+                <button 
+                  onClick={() => navigateToPage("/notre-mission")} 
+                  className="text-gray-300 hover:text-purple-400 cursor-pointer"
+                >
                   Notre mission
-                </Link>
+                </button>
               </li>
               <li>
-                <Link to="/comment-adopter" className="text-gray-300 hover:text-purple-400">
+                <button 
+                  onClick={() => navigateToPage("/comment-adopter")} 
+                  className="text-gray-300 hover:text-purple-400 cursor-pointer"
+                >
                   Comment adopter
-                </Link>
+                </button>
               </li>
               <li>
-                <Link to="/conseils-adoption" className="text-gray-300 hover:text-purple-400">
+                <button 
+                  onClick={() => navigateToPage("/conseils-adoption")} 
+                  className="text-gray-300 hover:text-purple-400 cursor-pointer"
+                >
                   Conseils d'adoption
-                </Link>
+                </button>
               </li>
               <li>
-                <Link to="/blog" className="text-gray-300 hover:text-purple-400">
+                <button 
+                  onClick={() => navigateToPage("/blog")} 
+                  className="text-gray-300 hover:text-purple-400 cursor-pointer"
+                >
                   Blog
-                </Link>
+                </button>
               </li>
             </ul>
           </div>
@@ -82,9 +105,12 @@ const Footer = () => {
             <h4 className="text-lg font-semibold mb-4">Contact</h4>
             <ul className="space-y-2">
               <li>
-                <Link to="/contact" className="text-gray-300 hover:text-purple-400 flex items-center">
+                <button
+                  onClick={() => navigateToPage("/contact")}
+                  className="text-gray-300 hover:text-purple-400 flex items-center cursor-pointer"
+                >
                   <Mail className="mr-2 h-4 w-4" /> contact@cuddlebuddies.fr
-                </Link>
+                </button>
               </li>
             </ul>
             

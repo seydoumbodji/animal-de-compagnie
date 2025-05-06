@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
@@ -6,6 +7,11 @@ import { Clock, User } from 'lucide-react';
 import NewsletterSignup from '@/components/NewsletterSignup';
 
 const Blog = () => {
+  // Effet pour défiler vers le haut de la page au chargement
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
   // Catégories
   const categories = [
     "Toutes", "Bien-être", "Conseils pratiques", "Chiens", "Chats", "Lapins", "Témoignages", "Événements"

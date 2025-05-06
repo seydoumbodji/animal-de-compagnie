@@ -1,11 +1,16 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { CheckCircle } from 'lucide-react';
 
 const HowToAdopt = () => {
+  // Effet pour défiler vers le haut de la page au chargement
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+  
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
