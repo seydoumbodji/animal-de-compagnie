@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useAnimals } from "@/hooks/useAnimals";
 import PetCard from "@/components/PetCard";
@@ -7,7 +8,7 @@ import { Dog, Cat, Rabbit } from "lucide-react";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 
 const AnimalCollection = () => {
-  const { data: animals, isLoading, error } = useAnimals();
+  const { animals, isLoading, error } = useAnimals();
   const [selectedSpecies, setSelectedSpecies] = useState<string | undefined>();
 
   if (isLoading) {
@@ -105,8 +106,8 @@ const AnimalCollection = () => {
             type={getAnimalType(animal.species)}
             lifespan="10-15 ans"
             shelterName={animal.shelter_name}
-            shelter_email={animal.shelter_email}
-            shelter_phone={animal.shelter_phone}
+            shelter_email={animal.email_refuge}
+            shelter_phone={animal.numero_telephone_refuge}
             description={animal.description}
           />
         ))}
