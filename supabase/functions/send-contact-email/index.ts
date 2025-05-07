@@ -26,6 +26,9 @@ const handler = async (req: Request): Promise<Response> => {
   try {
     const { name, email, subject, message }: ContactFormData = await req.json();
     
+    console.log("Données reçues:", { name, email, subject, message });
+    console.log("API Key présente:", !!Deno.env.get("RESEND_API_KEY"));
+    
     if (!name || !email || !message) {
       return new Response(
         JSON.stringify({ error: "Informations manquantes" }),
@@ -42,7 +45,7 @@ const handler = async (req: Request): Promise<Response> => {
     // Envoyer l'email au destinataire final (votre email personnel)
     const emailResponse = await resend.emails.send({
       from: "Contact <contact@cuddlebuddies.fr>",
-      to: ["bienplus759@gmail.com"], // Votre email personnel vérifié
+      to: ["bienplus759@gmail.com"],
       reply_to: email,
       subject: `[Contact CuddleBuddies] ${subjectLine}`,
       html: `
@@ -56,7 +59,11 @@ const handler = async (req: Request): Promise<Response> => {
       `,
     });
 
-    console.log("Email envoyé avec succès:", emailResponse);
+    console.log("Réponse de l'API Resend (email principal):", JSON.stringify(emailResponse));
+    
+    if (emailResponse.error) {
+      throw new Error(`Erreur d'envoi email principal: ${emailResponse.error.message}`);
+    }
 
     // Envoyer une confirmation à l'expéditeur
     const confirmationResponse = await resend.emails.send({
@@ -75,6 +82,12 @@ const handler = async (req: Request): Promise<Response> => {
         <p>À bientôt,<br>L'équipe CuddleBuddies</p>
       `,
     });
+    
+    console.log("Réponse de l'API Resend (email confirmation):", JSON.stringify(confirmationResponse));
+
+    if (confirmationResponse.error) {
+      console.warn(`Avertissement: Email de confirmation non envoyé: ${confirmationResponse.error.message}`);
+    }
 
     return new Response(JSON.stringify({ success: true }), {
       status: 200,

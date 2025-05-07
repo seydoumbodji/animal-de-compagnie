@@ -1,11 +1,10 @@
-
 import React, { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Mail } from 'lucide-react';
+import { Mail, AlertCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import NewsletterSignup from '@/components/NewsletterSignup';
 import { supabase } from '@/integrations/supabase/client';
@@ -17,9 +16,11 @@ const Contact = () => {
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError(null);
     
     if (!name || !email || !message) {
       toast({
@@ -33,11 +34,14 @@ const Contact = () => {
     setIsSubmitting(true);
     
     try {
-      const { error } = await supabase.functions.invoke('send-contact-email', {
+      const { data, error } = await supabase.functions.invoke('send-contact-email', {
         body: { name, email, subject, message }
       });
       
-      if (error) throw error;
+      if (error) {
+        console.error("Erreur retournée par la fonction:", error);
+        throw new Error(error.message || "Une erreur est survenue lors de l'envoi");
+      }
       
       toast({
         title: "Message envoyé",
@@ -49,8 +53,9 @@ const Contact = () => {
       setEmail('');
       setSubject('');
       setMessage('');
-    } catch (error) {
+    } catch (error: any) {
       console.error("Erreur lors de l'envoi du message:", error);
+      setError(error.message || "Un problème est survenu lors de l'envoi de votre message.");
       toast({
         title: "Erreur",
         description: "Un problème est survenu lors de l'envoi de votre message. Veuillez réessayer.",
@@ -80,6 +85,30 @@ const Contact = () => {
                 <p className="text-gray-600">contact@cuddlebuddies.fr</p>
               </div>
             </div>
+            
+            {error && (
+              <div className="bg-red-50 border-l-4 border-red-400 p-4 mb-6">
+                <div className="flex items-start">
+                  <div className="flex-shrink-0">
+                    <AlertCircle className="h-5 w-5 text-red-400" />
+                  </div>
+                  <div className="ml-3">
+                    <h3 className="text-sm font-medium text-red-800">
+                      Une erreur est survenue
+                    </h3>
+                    <div className="mt-2 text-sm text-red-700">
+                      <p>{error}</p>
+                      <p className="mt-1">
+                        Si le problème persiste, vous pouvez nous envoyer un email directement à{' '}
+                        <a href="mailto:contact@cuddlebuddies.fr" className="font-medium underline">
+                          contact@cuddlebuddies.fr
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
             
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
