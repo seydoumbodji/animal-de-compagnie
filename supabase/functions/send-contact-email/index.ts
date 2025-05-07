@@ -41,8 +41,8 @@ const handler = async (req: Request): Promise<Response> => {
     
     // Envoyer l'email au destinataire final (votre email personnel)
     const emailResponse = await resend.emails.send({
-      from: "CuddleBuddies <onboarding@resend.dev>",
-      to: ["bienplus759@gmail.com"], // Votre email personnel
+      from: "Contact <contact@cuddlebuddies.fr>",
+      to: ["bienplus759@gmail.com"], // Votre email personnel vérifié
       reply_to: email,
       subject: `[Contact CuddleBuddies] ${subjectLine}`,
       html: `
@@ -60,7 +60,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Envoyer une confirmation à l'expéditeur
     const confirmationResponse = await resend.emails.send({
-      from: "CuddleBuddies <onboarding@resend.dev>",
+      from: "Contact <contact@cuddlebuddies.fr>",
       to: [email],
       subject: "Nous avons bien reçu votre message",
       html: `
